@@ -67,7 +67,7 @@ export default function HeroSection() {
       <div
         className="absolute inset-0 w-full h-full z-0"
         style={{
-          backgroundImage: `url('/background-img .jpg')`,
+          backgroundImage: `url('/background-img.jpg')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           opacity: 0.05,
