@@ -47,7 +47,6 @@ export default function SignUpPage() {
     setLoading(true);
     await new Promise((r) => setTimeout(r, 600));
     setLoading(false);
-    setVerified(false);
     // After account creation, send user to /login (alias to /sign-in)
     router.push("/login");
   };
