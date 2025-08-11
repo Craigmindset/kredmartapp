@@ -75,7 +75,9 @@ const loanProviders: Provider[] = [
   },
 ];
 
-export default function AccessLoanPage() {
+import { Suspense } from "react";
+
+function AccessLoanContent() {
   const [selectedProvider, setSelectedProvider] = useState(0);
   const [providerChosen, setProviderChosen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -83,7 +85,6 @@ export default function AccessLoanPage() {
   return (
     <>
       <SiteHeader />
-
       <section className="bg-white min-h-screen py-16 px-6 relative overflow-hidden">
         {/* Background image */}
         <div className="absolute inset-0 z-0">
@@ -96,7 +97,6 @@ export default function AccessLoanPage() {
             className="opacity-10 object-cover"
           />
         </div>
-
         <div className="relative z-10">
           <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center ml-8 md:ml-16">
             {/* Left Side: Text */}
@@ -104,17 +104,14 @@ export default function AccessLoanPage() {
               <div className="inline-flex items-center text-base font-semibold px-4 py-1 rounded-full bg-gray-100 text-gray-700 mb-4">
                 <span className="mr-2">🚀</span> Customers Come First
               </div>
-
               <h1 className="text-5xl sm:text-6xl font-extrabold text-gray-900 leading-tight mb-8 tracking-tight">
                 Top Lenders <br />
                 <span className="block mt-2">All in one Place</span>
               </h1>
-
               <p className="text-gray-700 text-base mb-10 tracking-tight">
                 Whether you’re shopping for a new gadget, appliance or dealing
                 with unexpected needs, we make borrowing simple and stress-free.
               </p>
-
               {/* Provider selector */}
               <div className="relative inline-block mb-10">
                 <div className="flex items-center gap-2 mb-10">
@@ -127,7 +124,6 @@ export default function AccessLoanPage() {
                       : "Select Provider"}
                     <ChevronDown size={16} />
                   </Button>
-
                   {dropdownOpen && (
                     <div className="flex items-center gap-0 ml-2">
                       <div className="w-40 bg-white border border-gray-200 rounded-md shadow-lg z-10">
@@ -150,7 +146,6 @@ export default function AccessLoanPage() {
                 </div>
               </div>
             </div>
-
             {/* Right Side: Provider Card */}
             {!providerChosen ? (
               <div className="bg-[#e0f2fe] bg-opacity-80 rounded-2xl p-4 sm:p-6 shadow-xl w-full max-w-sm mx-auto flex items-center justify-center">
@@ -169,12 +164,10 @@ export default function AccessLoanPage() {
                       height={200}
                     />
                   </div>
-
                   <div className="space-y-1 pb-4">
                     <h3 className="text-lg font-semibold text-gray-900">
                       Requirements
                     </h3>
-
                     <ul className="text-sm text-gray-700 list-disc list-inside">
                       {loanProviders[selectedProvider].name ===
                         "CreditDirect" &&
@@ -188,13 +181,10 @@ export default function AccessLoanPage() {
                           <li key={idx}>{point}</li>
                         ))}
                       <li>
-                        Income:{" "}
-                        {loanProviders[selectedProvider].requirements.income}
+                        Income: {loanProviders[selectedProvider].requirements.income}
                       </li>
                     </ul>
-
                     <hr className="my-2 border-gray-300" />
-
                     {/* Required Document Section */}
                     <h3 className="text-lg font-semibold text-gray-900">
                       Required Document
@@ -208,7 +198,6 @@ export default function AccessLoanPage() {
                       <li>Active Debit Card</li>
                     </ul>
                   </div>
-
                   <Button
                     className="w-full bg-[#466cf4] text-white font-bold py-3 mt-6 rounded-lg hover:bg-[#3556b2]"
                     onClick={() =>
@@ -224,9 +213,16 @@ export default function AccessLoanPage() {
           </div>
         </div>
       </section>
-
       <WhyUs />
       <SiteFooter />
     </>
+  );
+}
+
+export default function AccessLoanPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <AccessLoanContent />
+    </Suspense>
   );
 }
