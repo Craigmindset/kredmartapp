@@ -1,20 +1,20 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useEffect, useMemo, useState } from "react"
-import { useRouter } from "next/navigation"
-import LayoutShell from "@/components/layout-shell"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
-import { StepProgress } from "@/components/step-progress"
-import { BadgeCheck, Badge, KeyRound, Lock, Eye, EyeOff } from "lucide-react"
-import { useToast } from "@/hooks/use-toast"
+import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+import LayoutShell from "@/components/layout-shell";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { StepProgress } from "@/components/step-progress";
+import { BadgeCheck, Badge, KeyRound, Lock, Eye, EyeOff } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
-type Step = 1 | 2 | 3 | 4
-const DEMO_MERCHANT_ID = "KM02341"
-const DEMO_OTP = "111111"
+type Step = 1 | 2 | 3 | 4;
+const DEMO_MERCHANT_ID = "KM02341";
+const DEMO_OTP = "111111";
 
 function Timeline({ current }: { current: Step }) {
   const items = [
@@ -22,15 +22,15 @@ function Timeline({ current }: { current: Step }) {
     { key: 2, label: "Merchant ID", icon: Badge },
     { key: 3, label: "OTP", icon: KeyRound },
     { key: 4, label: "Password", icon: Lock },
-  ] as const
+  ] as const;
 
   return (
     <div className="mb-4">
       <div className="hidden items-center justify-between gap-2 md:flex">
         {items.map((it, idx) => {
-          const Icon = it.icon
-          const done = it.key < current
-          const active = it.key === current
+          const Icon = it.icon;
+          const done = it.key < current;
+          const active = it.key === current;
           return (
             <div key={it.key} className="flex flex-1 items-center">
               <div
@@ -38,8 +38,8 @@ function Timeline({ current }: { current: Step }) {
                   active
                     ? "bg-foreground text-background ring-foreground/10"
                     : done
-                      ? "bg-emerald-600/10 text-emerald-700 ring-emerald-600/20"
-                      : "bg-muted text-muted-foreground ring-border"
+                    ? "bg-emerald-600/10 text-emerald-700 ring-emerald-600/20"
+                    : "bg-muted text-muted-foreground ring-border"
                 }`}
               >
                 <Icon className="mr-1.5 h-3.5 w-3.5" />
@@ -47,11 +47,17 @@ function Timeline({ current }: { current: Step }) {
               </div>
               {idx < items.length - 1 && (
                 <div
-                  className={`mx-2 h-px flex-1 ${done ? "bg-emerald-600/40" : active ? "bg-foreground/40" : "bg-muted"}`}
+                  className={`mx-2 h-px flex-1 ${
+                    done
+                      ? "bg-emerald-600/40"
+                      : active
+                      ? "bg-foreground/40"
+                      : "bg-muted"
+                  }`}
                 />
               )}
             </div>
-          )
+          );
         })}
       </div>
       {/* Mobile compact progress */}
@@ -59,29 +65,35 @@ function Timeline({ current }: { current: Step }) {
         <StepProgress current={current} total={4} />
       </div>
     </div>
-  )
+  );
 }
 
 export default function MerchantSignUpPage() {
-  const router = useRouter()
-  const { toast } = useToast()
+  const router = useRouter();
+  const { toast } = useToast();
 
-  const [step, setStep] = useState<Step>(1)
+  const [step, setStep] = useState<Step>(1);
 
   // Step 1: details
-  const [firstName, setFirstName] = useState("")
-  const [lastName, setLastName] = useState("")
-  const [email, setEmail] = useState("")
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
   const canStep1 = useMemo(() => {
-    const ok = firstName.trim().length > 0 && lastName.trim().length > 0 && /\S+@\S+\.\S+/.test(email)
-    return ok
-  }, [firstName, lastName, email])
+    const ok =
+      firstName.trim().length > 0 &&
+      lastName.trim().length > 0 &&
+      /\S+@\S+\.\S+/.test(email);
+    return ok;
+  }, [firstName, lastName, email]);
 
   // Step 2: merchant id verification
-  const [merchantId, setMerchantId] = useState("")
-  const [verifyingMerchantId, setVerifyingMerchantId] = useState(false)
-  const [merchantVerified, setMerchantVerified] = useState(false)
-  const merchantIdValidFormat = useMemo(() => /^[A-Za-z0-9]{7}$/.test(merchantId), [merchantId])
+  const [merchantId, setMerchantId] = useState("");
+  const [verifyingMerchantId, setVerifyingMerchantId] = useState(false);
+  const [merchantVerified, setMerchantVerified] = useState(false);
+  const merchantIdValidFormat = useMemo(
+    () => /^[A-Za-z0-9]{7}$/.test(merchantId),
+    [merchantId]
+  );
 
   async function verifyMerchantId() {
     if (!merchantIdValidFormat) {
@@ -89,76 +101,88 @@ export default function MerchantSignUpPage() {
         title: "Invalid Merchant ID format",
         description: "Enter a 7-character code. Example: KM02341",
         variant: "destructive",
-      })
-      return
+      });
+      return;
     }
-    setVerifyingMerchantId(true)
-    await new Promise((r) => setTimeout(r, 700))
-    setVerifyingMerchantId(false)
+    setVerifyingMerchantId(true);
+    await new Promise((r) => setTimeout(r, 700));
+    setVerifyingMerchantId(false);
     if (merchantId.toUpperCase() === DEMO_MERCHANT_ID) {
-      setMerchantVerified(true)
-      toast({ title: "Merchant ID verified", description: "Your Merchant ID has been verified successfully." })
-      setStep(3)
+      setMerchantVerified(true);
+      toast({
+        title: "Merchant ID verified",
+        description: "Your Merchant ID has been verified successfully.",
+      });
+      setStep(3);
     } else {
-      setMerchantVerified(false)
+      setMerchantVerified(false);
       toast({
         title: "Verification failed",
-        description: "We couldn't verify this Merchant ID. Use KM02341 as the demo code.",
+        description:
+          "We couldn't verify this Merchant ID. Use KM02341 as the demo code.",
         variant: "destructive",
-      })
+      });
     }
   }
 
   // Step 3: OTP
-  const [otp, setOtp] = useState("")
-  const [verifyingOtp, setVerifyingOtp] = useState(false)
-  const otpValidFormat = useMemo(() => /^\d{6}$/.test(otp), [otp])
+  const [otp, setOtp] = useState("");
+  const [verifyingOtp, setVerifyingOtp] = useState(false);
+  const otpValidFormat = useMemo(() => /^\d{6}$/.test(otp), [otp]);
 
   async function verifyOtp() {
     if (!otpValidFormat) {
       toast({
         title: "Invalid OTP",
-        description: "Enter the 6-digit code sent to your email. Use 111111 for demo.",
+        description:
+          "Enter the 6-digit code sent to your email. Use 111111 for demo.",
         variant: "destructive",
-      })
-      return
+      });
+      return;
     }
-    setVerifyingOtp(true)
-    await new Promise((r) => setTimeout(r, 600))
-    setVerifyingOtp(false)
+    setVerifyingOtp(true);
+    await new Promise((r) => setTimeout(r, 600));
+    setVerifyingOtp(false);
     if (otp === DEMO_OTP) {
-      toast({ title: "OTP verified", description: "Verification successful." })
-      setStep(4)
+      toast({ title: "OTP verified", description: "Verification successful." });
+      setStep(4);
     } else {
-      toast({ title: "Incorrect OTP", description: "Use 111111 as the demo code.", variant: "destructive" })
+      toast({
+        title: "Incorrect OTP",
+        description: "Use 111111 as the demo code.",
+        variant: "destructive",
+      });
     }
   }
 
   // Step 4: password
-  const [pwd, setPwd] = useState("")
-  const [confirm, setConfirm] = useState("")
-  const [showPwd, setShowPwd] = useState(false)
-  const [showConfirm, setShowConfirm] = useState(false)
-  const [creating, setCreating] = useState(false)
-  const passwordOk = useMemo(() => pwd.length >= 8 && pwd === confirm, [pwd, confirm])
+  const [pwd, setPwd] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [showPwd, setShowPwd] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [creating, setCreating] = useState(false);
+  const passwordOk = useMemo(
+    () => pwd.length >= 8 && pwd === confirm,
+    [pwd, confirm]
+  );
 
   async function onCreate(e: React.FormEvent) {
-    e.preventDefault()
-    if (!passwordOk) return
-    setCreating(true)
-    await new Promise((r) => setTimeout(r, 900))
-    setCreating(false)
+    e.preventDefault();
+    if (!passwordOk) return;
+    setCreating(true);
+    await new Promise((r) => setTimeout(r, 900));
+    setCreating(false);
     toast({
       title: "Account created",
       description: "You can now sign in to your merchant dashboard.",
-    })
-    router.replace("/admindesk")
+    });
+    router.replace("/admindesk");
   }
 
   // Prevent skipping ahead without prerequisites
   useEffect(() => {
-    if (step >= 3 && !merchantVerified) setStep(2)
-  }, [step, merchantVerified])
+    if (step >= 3 && !merchantVerified) setStep(2);
+  }, [step, merchantVerified]);
 
   return (
     <LayoutShell showFooter={false}>
@@ -178,47 +202,67 @@ export default function MerchantSignUpPage() {
                 <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/15 ring-1 ring-white/25">
                   <div className="h-5 w-5 rounded-full bg-white" />
                 </div>
-                <span className="text-2xl font-semibold tracking-tight">KredMart Merchant</span>
+                <span className="text-2xl font-semibold tracking-tight">
+                  KredMart Merchant
+                </span>
               </div>
 
               <h1 className="text-3xl font-semibold leading-tight tracking-tight md:text-5xl">
                 Create your merchant account
               </h1>
               <p className="mt-4 max-w-md text-sm/6 text-white/85">
-                Follow the steps to register. Verify your Merchant ID and email, then secure your account with a
-                password.
+                Follow the steps to register. Verify your Merchant ID and email,
+                then secure your account with a password.
               </p>
             </div>
 
             {/* Right: Sign Up Card */}
-            <div className="flex w-full items-center justify-center py-10">
-              <div className="w-full max-w-md rounded-2xl border bg-card p-6 shadow-lg backdrop-blur-md md:p-8">
+            <div className="flex w-full items-center justify-center py-10 ">
+              <div className="w-full max-w-lg rounded-2xl border bg-card p-8 shadow-lg backdrop-blur-md md:p-8">
                 <Timeline current={step} />
-                <div className="text-xs font-medium text-muted-foreground">{"REGISTRATION"}</div>
-                <h2 className="mt-1 text-xl font-semibold tracking-tight md:text-2xl">{"Merchant Sign Up"}</h2>
+                <div className="text-xs font-medium text-muted-foreground">
+                  {"REGISTRATION"}
+                </div>
+                <h2 className="mt-1 text-xl font-semibold tracking-tight md:text-2xl">
+                  {"Merchant Sign Up"}
+                </h2>
 
                 {/* Step content */}
                 <div className="mt-6 space-y-4">
                   {step === 1 && (
                     <form
                       onSubmit={(e) => {
-                        e.preventDefault()
-                        if (canStep1) setStep(2)
+                        e.preventDefault();
+                        if (canStep1) setStep(2);
                       }}
                       className="space-y-4"
                     >
                       <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
                         <div>
-                          <label className="mb-1 block text-sm font-medium">First Name</label>
-                          <Input value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
+                          <label className="mb-1 block text-sm font-medium">
+                            First Name
+                          </label>
+                          <Input
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
+                            required
+                          />
                         </div>
                         <div>
-                          <label className="mb-1 block text-sm font-medium">Last Name</label>
-                          <Input value={lastName} onChange={(e) => setLastName(e.target.value)} required />
+                          <label className="mb-1 block text-sm font-medium">
+                            Last Name
+                          </label>
+                          <Input
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target.value)}
+                            required
+                          />
                         </div>
                       </div>
                       <div>
-                        <label className="mb-1 block text-sm font-medium">Email</label>
+                        <label className="mb-1 block text-sm font-medium">
+                          Email
+                        </label>
                         <Input
                           type="email"
                           value={email}
@@ -246,33 +290,48 @@ export default function MerchantSignUpPage() {
                   {step === 2 && (
                     <div className="space-y-4">
                       <div>
-                        <label className="mb-1 block text-sm font-medium">Merchant ID</label>
+                        <label className="mb-1 block text-sm font-medium">
+                          Merchant ID
+                        </label>
                         <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
                           <div className="sm:col-span-2">
                             <Input
                               value={merchantId}
-                              onChange={(e) => setMerchantId(e.target.value.toUpperCase())}
+                              onChange={(e) =>
+                                setMerchantId(e.target.value.toUpperCase())
+                              }
                               placeholder="KM02341"
                               maxLength={7}
                             />
                             <div className="mt-1 text-xs text-muted-foreground">
-                              Enter your 7-character Merchant ID. Use KM02341 for demo.
+                              Enter your 7-character Merchant ID. Use KM02341
+                              for demo.
                             </div>
                           </div>
                           <div className="sm:col-span-1">
-                            <Button className="w-full" onClick={verifyMerchantId} disabled={verifyingMerchantId}>
+                            <Button
+                              className="w-full"
+                              onClick={verifyMerchantId}
+                              disabled={verifyingMerchantId}
+                            >
                               {verifyingMerchantId ? "Verifying..." : "Verify"}
                             </Button>
                           </div>
                         </div>
                       </div>
                       <div className="flex items-center justify-between">
-                        <Button variant="outline" className="bg-transparent" onClick={() => setStep(1)}>
+                        <Button
+                          variant="outline"
+                          className="bg-transparent"
+                          onClick={() => setStep(1)}
+                        >
                           Back
                         </Button>
                         <Button
                           onClick={verifyMerchantId}
-                          disabled={verifyingMerchantId || !merchantIdValidFormat}
+                          disabled={
+                            verifyingMerchantId || !merchantIdValidFormat
+                          }
                           variant="secondary"
                         >
                           {verifyingMerchantId ? "Verifying..." : "Continue"}
@@ -284,24 +343,38 @@ export default function MerchantSignUpPage() {
                   {step === 3 && (
                     <div className="space-y-4">
                       <div>
-                        <label className="mb-1 block text-sm font-medium">Enter OTP</label>
+                        <label className="mb-1 block text-sm font-medium">
+                          Enter OTP
+                        </label>
                         <Input
                           inputMode="numeric"
                           pattern="[0-9]*"
                           maxLength={6}
                           value={otp}
-                          onChange={(e) => setOtp(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                          onChange={(e) =>
+                            setOtp(
+                              e.target.value.replace(/\D/g, "").slice(0, 6)
+                            )
+                          }
                           placeholder="Enter 111111"
                         />
                         <div className="mt-1 text-xs text-muted-foreground">
-                          A 6-digit code was sent to {email || "your email"}. Use 111111 for demo.
+                          A 6-digit code was sent to {email || "your email"}.
+                          Use 111111 for demo.
                         </div>
                       </div>
                       <div className="flex items-center justify-between">
-                        <Button variant="outline" className="bg-transparent" onClick={() => setStep(2)}>
+                        <Button
+                          variant="outline"
+                          className="bg-transparent"
+                          onClick={() => setStep(2)}
+                        >
                           Back
                         </Button>
-                        <Button onClick={verifyOtp} disabled={verifyingOtp || !otpValidFormat}>
+                        <Button
+                          onClick={verifyOtp}
+                          disabled={verifyingOtp || !otpValidFormat}
+                        >
                           {verifyingOtp ? "Verifying..." : "Verify OTP"}
                         </Button>
                       </div>
@@ -311,7 +384,9 @@ export default function MerchantSignUpPage() {
                   {step === 4 && (
                     <form onSubmit={onCreate} className="space-y-4">
                       <div>
-                        <label className="mb-1 block text-sm font-medium">Create Password</label>
+                        <label className="mb-1 block text-sm font-medium">
+                          Create Password
+                        </label>
                         <div className="relative">
                           <Input
                             type={showPwd ? "text" : "password"}
@@ -325,15 +400,25 @@ export default function MerchantSignUpPage() {
                             type="button"
                             onClick={() => setShowPwd((v) => !v)}
                             className="absolute inset-y-0 right-0 flex w-10 items-center justify-center text-muted-foreground"
-                            aria-label={showPwd ? "Hide password" : "Show password"}
+                            aria-label={
+                              showPwd ? "Hide password" : "Show password"
+                            }
                           >
-                            {showPwd ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                            {showPwd ? (
+                              <EyeOff className="h-4 w-4" />
+                            ) : (
+                              <Eye className="h-4 w-4" />
+                            )}
                           </button>
                         </div>
-                        <div className="mt-1 text-xs text-muted-foreground">Minimum 8 characters.</div>
+                        <div className="mt-1 text-xs text-muted-foreground">
+                          Minimum 8 characters.
+                        </div>
                       </div>
                       <div>
-                        <label className="mb-1 block text-sm font-medium">Confirm Password</label>
+                        <label className="mb-1 block text-sm font-medium">
+                          Confirm Password
+                        </label>
                         <div className="relative">
                           <Input
                             type={showConfirm ? "text" : "password"}
@@ -347,20 +432,36 @@ export default function MerchantSignUpPage() {
                             type="button"
                             onClick={() => setShowConfirm((v) => !v)}
                             className="absolute inset-y-0 right-0 flex w-10 items-center justify-center text-muted-foreground"
-                            aria-label={showConfirm ? "Hide password" : "Show password"}
+                            aria-label={
+                              showConfirm ? "Hide password" : "Show password"
+                            }
                           >
-                            {showConfirm ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                            {showConfirm ? (
+                              <EyeOff className="h-4 w-4" />
+                            ) : (
+                              <Eye className="h-4 w-4" />
+                            )}
                           </button>
                         </div>
                         {confirm && pwd !== confirm && (
-                          <div className="mt-1 text-xs text-rose-600">Passwords do not match.</div>
+                          <div className="mt-1 text-xs text-rose-600">
+                            Passwords do not match.
+                          </div>
                         )}
                       </div>
                       <div className="flex items-center justify-between">
-                        <Button type="button" variant="outline" className="bg-transparent" onClick={() => setStep(3)}>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          className="bg-transparent"
+                          onClick={() => setStep(3)}
+                        >
                           Back
                         </Button>
-                        <Button type="submit" disabled={!passwordOk || creating}>
+                        <Button
+                          type="submit"
+                          disabled={!passwordOk || creating}
+                        >
                           {creating ? "Creating..." : "Create Account"}
                         </Button>
                       </div>
@@ -382,5 +483,5 @@ export default function MerchantSignUpPage() {
         </div>
       </section>
     </LayoutShell>
-  )
+  );
 }

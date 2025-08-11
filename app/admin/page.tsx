@@ -1,26 +1,32 @@
-"use client"
+"use client";
 
-import { useState, type FormEvent } from "react"
-import { useRouter } from "next/navigation"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Button } from "@/components/ui/button"
-import { useAdminAuthStore } from "@/store/admin-auth-store"
+import { useState, type FormEvent } from "react";
+import { useRouter } from "next/navigation";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { useAdminAuthStore } from "@/store/admin-auth-store";
 
 export default function AdminSignInPage() {
-  const router = useRouter()
-  const signInDemo = useAdminAuthStore((s) => s.signInDemo)
+  const router = useRouter();
+  const signInDemo = useAdminAuthStore((s) => s.signInDemo);
 
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   async function onSubmit(e: FormEvent) {
-    e.preventDefault()
-    setError(null)
-    setLoading(true)
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
     try {
       // Demo-only: immediately authenticate and redirect.
       // For real API integration, replace with a call like:
@@ -32,26 +38,34 @@ export default function AdminSignInPage() {
       // if (!res.ok) throw new Error("Invalid credentials")
       // const data = await res.json()
       // signInWithToken(data.token) // or set cookie and refresh
-      signInDemo(email || "admin@demo.com")
-      router.replace("/admin/dashboard")
+      signInDemo(email || "admin@demo.com");
+      router.replace("/admin/dashboard");
     } catch (err: any) {
-      setError(err?.message || "Unable to sign in")
+      setError(err?.message || "Unable to sign in");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   }
 
   function signInAsDemo() {
-    signInDemo("admin@demo.com")
-    router.replace("/admin/dashboard")
+    signInDemo("admin@demo.com");
+    router.replace("/admin/dashboard");
   }
 
   return (
-    <section className="container mx-auto flex min-h-[80vh] items-center justify-center px-4 py-10">
-      <Card className="w-full max-w-md">
+    <section className="relative min-h-screen flex items-center justify-center px-4 py-10">
+      <img
+        src="https://hlfwfvupabrc8fwr.public.blob.vercel-storage.com/merchant.jpg"
+        alt="Background"
+        className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover"
+      />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
+      <Card className="w-full max-w-md relative z-10">
         <CardHeader>
-          <CardTitle className="text-xl">Admin Sign In</CardTitle>
-          <CardDescription>Enter your credentials to access the admin console.</CardDescription>
+          <CardTitle className="text-xl text-center">Admin Sign In</CardTitle>
+          <CardDescription className="text-center">
+            Enter your credentials to access the admin console.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={onSubmit} className="space-y-4">
@@ -89,12 +103,14 @@ export default function AdminSignInPage() {
               </Button>
             </div>
           </form>
-          <p className="mt-4 text-xs text-muted-foreground">
-            Note: This environment uses a demo login. Replace the inline demo code with your real authentication API
-            when ready.
-          </p>
+          <a
+            href="/"
+            className="mt-4 text-xs text-muted-foreground underline text-center block"
+          >
+            Go Home
+          </a>
         </CardContent>
       </Card>
     </section>
-  )
+  );
 }
