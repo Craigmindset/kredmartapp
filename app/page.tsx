@@ -6,6 +6,7 @@ import AdBannerGrid from "@/components/ad-banner-grid"
 import TestimonialsSlider from "@/components/testimonials-slider"
 import Newsletter from "@/components/newsletter"
 import { products } from "@/lib/products"
+import ChatBubble from "@/components/ui/chat-bubble"
 
 export default function Page() {
   const deals = products.filter((p) => p.deal).slice(0, 5)
@@ -21,6 +22,8 @@ export default function Page() {
       <AdBannerGrid />
       <TestimonialsSlider />
       <Newsletter />
+
+  <ChatBubble />
     </LayoutShell>
   )
 }
