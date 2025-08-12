@@ -8,6 +8,7 @@ import { ChevronDown } from "lucide-react";
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
 import WhyUs from "@/components/why-us";
+import LoanFaq from "@/components/loan-faq";
 
 type Provider = {
   name: string;
@@ -226,6 +227,8 @@ export default function AccessLoanPage() {
       </section>
 
       <WhyUs />
+      <LoanFaq />
+      <hr className="my-0 border-t-1 border-white w-full" />
       <SiteFooter />
     </>
   );

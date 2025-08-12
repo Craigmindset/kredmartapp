@@ -3,6 +3,7 @@
 import type React from "react";
 
 import Link from "next/link";
+import { TbTruckReturn } from "react-icons/tb";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { AlignJustify, Menu, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -141,6 +142,17 @@ export default function SiteHeader() {
     <header
       className={`sticky top-0 z-50 w-full border-b bg-blue-800 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/75 ${appFontClass}`}
     >
+      {/* Top bar with Return Policy on the right */}
+      <div className="w-full bg-blue-900 text-white text-xs py-1 px-4 flex justify-end items-center">
+        <Link
+          href="/return-policy"
+          className="flex flex-row items-center gap-1 group"
+          aria-label="Return Policy"
+        >
+          <span className="text-xs group-hover:text-blue-200">Return Policy</span>
+          <TbTruckReturn size={16} className="text-blue-200 group-hover:text-white transition-colors" />
+        </Link>
+      </div>
       <div className="container mx-auto px-4">
         <div className="grid h-16 grid-cols-3 items-center">
           {/* Left: Mobile menu + Site name */}
@@ -208,6 +220,8 @@ export default function SiteHeader() {
             <div className="hidden sm:block">
               <CountrySelector />
             </div>
+
+            {/* ...existing code... */}
 
             <Button
               variant="ghost"
