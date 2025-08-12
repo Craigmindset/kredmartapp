@@ -218,7 +218,7 @@ export default function MerchantSignUpPage() {
 
             {/* Right: Sign Up Card */}
             <div className="flex w-full items-center justify-center py-10 ">
-              <div className="w-full max-w-lg rounded-2xl border bg-card p-8 shadow-lg backdrop-blur-md md:p-8">
+              <div className="w-full max-w-lg rounded-2xl border bg-card p-6 shadow-lg backdrop-blur-md md:p-8">
                 <Timeline current={step} />
                 <div className="text-xs font-medium text-muted-foreground">
                   {"REGISTRATION"}

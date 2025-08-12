@@ -1,18 +1,32 @@
 export type LoanProvider = {
-  name: string
-  logo: string
-  applyUrl: string
+  name: string;
+  logo: string;
+  applyUrl: string;
   requirements: {
-    creditScore?: string
-    income?: string
-    loanAmount?: string
-    processingTime?: string
-    bulletPoints?: string[]
-  }
-  eligibility?: string[]
-}
+    creditScore?: string;
+    income?: string;
+    loanAmount?: string;
+    processingTime?: string;
+    bulletPoints?: string[];
+  };
+  eligibility?: string[];
+};
 
 export const loanProviders: LoanProvider[] = [
+  {
+    name: "Select",
+    logo: "/placeholder.svg?height=60&width=180",
+    applyUrl: "/sign-up",
+    requirements: {
+      bulletPoints: [
+        "Needed Monthly income",
+        "Valid Id",
+        "Utility Bill",
+        "Face authentication",
+      ],
+    },
+    eligibility: [],
+  },
   {
     name: "Renmoney",
     logo: "/placeholder.svg?height=60&width=180",
@@ -61,7 +75,11 @@ export const loanProviders: LoanProvider[] = [
       loanAmount: "N30,000 - N400,000",
       processingTime: "18 months",
     },
-    eligibility: ["Stable monthly income", "BVN or NIN", "Recent bank statement (3–6 months)"],
+    eligibility: [
+      "Stable monthly income",
+      "BVN or NIN",
+      "Recent bank statement (3–6 months)",
+    ],
   },
   {
     name: "Binatone Finance",
@@ -73,7 +91,11 @@ export const loanProviders: LoanProvider[] = [
       loanAmount: "N20,000 - N300,000",
       processingTime: "12 months",
     },
-    eligibility: ["Government-issued ID", "Proof of address", "Active debit card"],
+    eligibility: [
+      "Government-issued ID",
+      "Proof of address",
+      "Active debit card",
+    ],
   },
   {
     name: "QuickCash",
@@ -87,4 +109,4 @@ export const loanProviders: LoanProvider[] = [
     },
     eligibility: ["18+ years", "BVN/NIN", "Active bank account"],
   },
-]
+];

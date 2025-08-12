@@ -20,9 +20,7 @@ const BANNER_URL =
 
 export default function LoanRequestPage() {
   const [step, setStep] = useState<"start" | "select">("start");
-  const [selectedName, setSelectedName] = useState<string>(
-    loanProviders[0].name
-  );
+  const [selectedName, setSelectedName] = useState<string>("Select");
   const router = useRouter();
 
   const selected: LoanProvider = useMemo(
@@ -189,7 +187,13 @@ export default function LoanRequestPage() {
               <Button variant="outline" onClick={() => setStep("start")}>
                 {"Back"}
               </Button>
-              <Button onClick={onApply}>{"Apply Now"}</Button>
+              <Button
+                onClick={onApply}
+                disabled={selected.name === "Select"}
+                variant={selected.name === "Select" ? "secondary" : "default"}
+              >
+                {"Apply Now"}
+              </Button>
             </div>
           </CardContent>
         </Card>

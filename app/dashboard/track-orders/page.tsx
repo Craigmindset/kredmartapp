@@ -1,54 +1,60 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useMemo, useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Bike, CheckCircle2, Package, Truck, Box } from "lucide-react"
-import { useOrders, type Order } from "@/store/orders-store"
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
+import { useMemo, useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Bike, CheckCircle2, Package, Truck, Box } from "lucide-react";
+import { useOrders, type Order } from "@/store/orders-store";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 type Step = {
-  key: "confirmed" | "packed" | "picked" | "rider" | "delivered"
-  label: string
-  icon: React.ComponentType<{ className?: string }>
-}
+  key: "confirmed" | "packed" | "picked" | "rider" | "delivered";
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
+};
 
 const STEPS: Step[] = [
   { key: "confirmed", label: "Order confirmed", icon: CheckCircle2 },
-  { key: "packed", label: "Packed", icon: Box },
-  { key: "picked", label: "Item picked", icon: Package },
-  { key: "rider", label: "Rider on move", icon: Bike },
-  { key: "delivered", label: "Delivered", icon: Truck },
-]
+  { key: "processing", label: "Processing Order", icon: Box },
+  { key: "delivery", label: "Order Set for Delivery", icon: Truck },
+  { key: "delivered", label: "Delivered", icon: CheckCircle2 },
+];
 
 function fulfillmentToStep(o?: Order) {
-  if (!o) return 1
+  if (!o) return 1;
   switch (o.fulfillment) {
     case "Processing":
-      return 2 // confirmed + packed
+      return 2; // Processing Order
     case "Ready for Delivery":
-      return 3 // item picked
-    case "Rider on Move":
-      return 4
+      return 3; // Order Set for Delivery
     case "Delivered":
-      return 5
+      return 4; // Delivered
     case "Canceled":
-      return 1
+      return 1;
     default:
-      return 1
+      return 1;
   }
 }
 
 export default function TrackOrdersPage() {
-  const orders = useOrders((s) => s.orders)
-  const [id, setId] = useState("")
-  const found = useMemo(() => orders.find((o) => o.id.toLowerCase() === id.trim().toLowerCase()), [orders, id])
-  const current = found ?? orders[0] ?? null
-  const currentStep = fulfillmentToStep(current || undefined)
+  const orders = useOrders((s) => s.orders);
+  const [id, setId] = useState("");
+  const found = useMemo(
+    () => orders.find((o) => o.id.toLowerCase() === id.trim().toLowerCase()),
+    [orders, id]
+  );
+  const current = found ?? orders[0] ?? null;
+  const currentStep = fulfillmentToStep(current || undefined);
 
   return (
     <Card>
@@ -57,7 +63,11 @@ export default function TrackOrdersPage() {
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="flex flex-col gap-2 sm:flex-row">
-          <Input placeholder="Enter Order ID e.g., KM-ORD-240091" value={id} onChange={(e) => setId(e.target.value)} />
+          <Input
+            placeholder="Enter Order ID e.g., KM-ORD-240091"
+            value={id}
+            onChange={(e) => setId(e.target.value)}
+          />
           <Button onClick={() => void 0}>Find</Button>
         </div>
 
@@ -71,15 +81,17 @@ export default function TrackOrdersPage() {
               <div className="font-medium">Tracking</div>
               <Badge variant="secondary">{current.id}</Badge>
               <span className="text-muted-foreground">•</span>
-              <span className="text-muted-foreground">{new Date(current.createdAt).toLocaleString()}</span>
+              <span className="text-muted-foreground">
+                {new Date(current.createdAt).toLocaleString()}
+              </span>
             </div>
 
             {/* Timeline */}
             <div className="relative">
               <div className="grid gap-6 md:grid-cols-5">
                 {STEPS.map((s, idx) => {
-                  const done = idx + 1 <= currentStep
-                  const Icon = s.icon
+                  const done = idx + 1 <= currentStep;
+                  const Icon = s.icon;
                   return (
                     <div key={s.key} className="flex items-center gap-3">
                       <div
@@ -91,9 +103,15 @@ export default function TrackOrdersPage() {
                       >
                         <Icon className="h-5 w-5" />
                       </div>
-                      <div className={`text-sm ${done ? "font-medium" : "text-muted-foreground"}`}>{s.label}</div>
+                      <div
+                        className={`text-sm ${
+                          done ? "font-medium" : "text-muted-foreground"
+                        }`}
+                      >
+                        {s.label}
+                      </div>
                     </div>
-                  )
+                  );
                 })}
               </div>
               {/* Progress line (desktop) */}
@@ -118,7 +136,9 @@ export default function TrackOrdersPage() {
                   <div className="mt-4 grid gap-4 md:grid-cols-3">
                     <div className="md:col-span-2 rounded-lg border">
                       <img
-                        src={"/placeholder.svg?height=420&width=900&query=map+with+rider+route"}
+                        src={
+                          "/placeholder.svg?height=420&width=900&query=map+with+rider+route"
+                        }
                         alt="Map preview"
                         className="h-[320px] w-full rounded-lg object-cover md:h-[420px]"
                       />
@@ -126,21 +146,33 @@ export default function TrackOrdersPage() {
                     <div className="space-y-3">
                       <div>
                         <div className="text-sm font-medium">Order</div>
-                        <div className="text-xs text-muted-foreground">{current?.id}</div>
+                        <div className="text-xs text-muted-foreground">
+                          {current?.id}
+                        </div>
                       </div>
                       <div>
                         <div className="text-sm font-medium">Status</div>
-                        <div className="text-xs text-muted-foreground">{current?.fulfillment}</div>
+                        <div className="text-xs text-muted-foreground">
+                          {current?.fulfillment}
+                        </div>
                       </div>
                       <div>
                         <div className="text-sm font-medium">ETA</div>
-                        <div className="text-xs text-muted-foreground">20–35 mins</div>
+                        <div className="text-xs text-muted-foreground">
+                          20–35 mins
+                        </div>
                       </div>
                       <div className="flex gap-2">
-                        <Button className="flex-1 bg-transparent" variant="outline">
+                        <Button
+                          className="flex-1 bg-transparent"
+                          variant="outline"
+                        >
                           Share Link
                         </Button>
-                        <Button className="flex-1 bg-transparent" variant="outline">
+                        <Button
+                          className="flex-1 bg-transparent"
+                          variant="outline"
+                        >
                           Call Rider
                         </Button>
                       </div>
@@ -153,5 +185,5 @@ export default function TrackOrdersPage() {
         )}
       </CardContent>
     </Card>
-  )
+  );
 }
