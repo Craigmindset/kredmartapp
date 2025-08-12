@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 
 import SiteHeader from "@/components/site-header";
+import { Suspense } from "react";
 import SiteFooter from "@/components/site-footer";
 import WhyUs from "@/components/why-us";
 import LoanFaq from "@/components/loan-faq";
@@ -83,7 +84,9 @@ export default function AccessLoanPage() {
 
   return (
     <>
-      <SiteHeader />
+      <Suspense fallback={null}>
+        <SiteHeader />
+      </Suspense>
 
       <section className="bg-white min-h-screen py-16 px-6 relative overflow-hidden">
         {/* Background image */}
