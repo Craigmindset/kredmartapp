@@ -52,7 +52,7 @@ export default function SignInPage() {
         <div className="container mx-auto px-4">
           <div className="grid min-h-[calc(100svh-64px)] items-center gap-8 md:grid-cols-2">
             {/* Left: Brand + Headline over background */}
-            <div className="text-white max-w-xl py-10">
+            <div className="hidden md:block text-white max-w-xl py-10">
               <div className="mb-10 inline-flex items-center gap-3">
                 <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/15 ring-1 ring-white/25">
                   <div className="h-5 w-5 rounded-full bg-white" />
@@ -76,7 +76,7 @@ export default function SignInPage() {
             </div>
 
             {/* Right: Auth Card */}
-            <div className="flex w-full items-center justify-center py-10">
+            <div className="flex w-full items-center justify-center py-4 sm:py-6 md:py-8 mt-0 sm:-mt-16 md:-mt-24">
               <div className="w-full max-w-md rounded-2xl border bg-card p-6 shadow-lg backdrop-blur-md md:p-8">
                 <div className="text-xs font-medium text-muted-foreground">
                   {"WELCOME BACK"}
@@ -96,7 +96,7 @@ export default function SignInPage() {
                       required
                       placeholder="johnsondoe@nomail.com"
                       value={email}
-                      onChange={e => setEmail(e.target.value)}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                   </div>
 
@@ -114,7 +114,7 @@ export default function SignInPage() {
                         placeholder="••••••••••••"
                         className="pr-10"
                         value={password}
-                        onChange={e => setPassword(e.target.value)}
+                        onChange={(e) => setPassword(e.target.value)}
                       />
                       <button
                         type="button"
