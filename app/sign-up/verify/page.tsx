@@ -39,7 +39,7 @@ export default function VerifyPage() {
 
         <div className="container mx-auto px-4">
           <div className="grid min-h-[calc(100svh-64px)] items-center gap-8 md:grid-cols-2">
-            <div className="max-w-xl py-10 text-white">
+            <div className="hidden md:block max-w-xl py-10 text-white">
               <div className="mb-10 inline-flex items-center gap-3">
                 <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/15 ring-1 ring-white/25">
                   <div className="h-5 w-5 rounded-full bg-white" />

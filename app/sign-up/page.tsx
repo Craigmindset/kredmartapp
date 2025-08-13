@@ -27,6 +27,13 @@ export default function SignUpPage() {
   const [showPwd, setShowPwd] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
+  // Password validation: 8+ chars, 1 uppercase, 1 special char
+  const passwordValid =
+    password.length === 8 &&
+    /[A-Z]/.test(password) &&
+    /[^A-Za-z0-9]/.test(password);
+  const passwordsMatch = password === confirm && password.length > 0;
+
   useEffect(() => {
     if (step === "password" && !verified) {
       router.push("/sign-up");
@@ -64,7 +71,13 @@ export default function SignUpPage() {
         <div className="container mx-auto px-4">
           <div className="grid min-h-[calc(100svh-64px)] items-center gap-8 md:grid-cols-2">
             {/* Left: Brand + Headline */}
-            <div className="hidden md:block max-w-xl py-10 text-white">
+            <div
+              className={
+                step === "password"
+                  ? "hidden md:block max-w-xl py-10 text-white"
+                  : "max-w-xl py-10 text-white"
+              }
+            >
               <div className="mb-10 inline-flex items-center gap-3">
                 <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/15 ring-1 ring-white/25">
                   <div className="h-5 w-5 rounded-full bg-white" />
@@ -104,19 +117,21 @@ export default function SignUpPage() {
                         <label className="mb-1 block text-sm font-medium">
                           {"Password"}
                         </label>
-                        <div className="relative">
+                        <div className="relative flex items-center">
                           <Input
                             type={showPwd ? "text" : "password"}
                             value={password}
+                            minLength={8}
+                            maxLength={8}
                             onChange={(e) => setPassword(e.target.value)}
                             required
-                            placeholder="Enter a strong password"
+                            placeholder="Enter 8 character password"
                             className="pr-10"
                           />
                           <button
                             type="button"
                             onClick={() => setShowPwd((v) => !v)}
-                            className="absolute inset-y-0 right-0 flex w-10 items-center justify-center text-muted-foreground"
+                            className="absolute right-2 top-1/2 -translate-y-1/2 flex w-8 h-8 items-center justify-center text-muted-foreground"
                             aria-label={
                               showPwd ? "Hide password" : "Show password"
                             }
@@ -128,6 +143,15 @@ export default function SignUpPage() {
                             )}
                           </button>
                         </div>
+                        <div className="mt-1 text-[10px] text-muted-foreground">
+                          Password must be exactly 8 characters, contain at
+                          least one uppercase letter and one special character.
+                        </div>
+                        {!passwordValid && password.length > 0 && (
+                          <div className="text-xs text-red-500">
+                            Password does not meet requirements.
+                          </div>
+                        )}
                       </div>
                       <div>
                         <label className="mb-1 block text-sm font-medium">
@@ -142,6 +166,11 @@ export default function SignUpPage() {
                             placeholder="Re-enter your password"
                             className="pr-10"
                           />
+                          {confirm.length > 0 && !passwordsMatch && (
+                            <div className="text-xs text-red-500">
+                              Passwords do not match.
+                            </div>
+                          )}
                           <button
                             type="button"
                             onClick={() => setShowConfirm((v) => !v)}
@@ -162,7 +191,7 @@ export default function SignUpPage() {
                       <Button
                         type="submit"
                         className="mt-2 h-11 w-full"
-                        disabled={loading || password !== confirm}
+                        disabled={loading || !passwordValid || !passwordsMatch}
                       >
                         {loading ? "Creating..." : "CREATE ACCOUNT"}
                       </Button>
@@ -242,14 +271,21 @@ export default function SignUpPage() {
                         <Input
                           type="tel"
                           required
-                          defaultValue={signupDraft?.phone}
-                          onChange={(e) =>
+                          maxLength={11}
+                          pattern="[0-9]{11}"
+                          inputMode="numeric"
+                          value={signupDraft?.phone || ""}
+                          onChange={(e) => {
+                            // Only allow digits and max 11 chars
+                            const val = e.target.value
+                              .replace(/\D/g, "")
+                              .slice(0, 11);
                             setSignupDraft({
                               ...signupDraft,
-                              phone: e.target.value,
-                            })
-                          }
-                          placeholder="+234 800 000 0000"
+                              phone: val,
+                            });
+                          }}
+                          placeholder="08000000000"
                         />
                       </div>
 
