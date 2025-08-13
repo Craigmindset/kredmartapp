@@ -73,9 +73,7 @@ export default function SignUpPage() {
             {/* Left: Brand + Headline */}
             <div
               className={
-                step === "password"
-                  ? "hidden md:block max-w-xl py-10 text-white"
-                  : "max-w-xl py-10 text-white"
+                "hidden md:block max-w-xl py-10 text-white"
               }
             >
               <div className="mb-10 inline-flex items-center gap-3">

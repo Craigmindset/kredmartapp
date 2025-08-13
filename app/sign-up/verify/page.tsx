@@ -1,34 +1,34 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import LayoutShell from "@/components/layout-shell"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { useAuth } from "@/store/auth-store"
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { StepProgress } from "@/components/step-progress"
+import LayoutShell from "@/components/layout-shell";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { useAuth } from "@/store/auth-store";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { StepProgress } from "@/components/step-progress";
 
 export default function VerifyPage() {
-  const [code, setCode] = useState("")
-  const { setVerified } = useAuth()
-  const router = useRouter()
-  const [loading, setLoading] = useState(false)
+  const [code, setCode] = useState("");
+  const { setVerified } = useAuth();
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const onVerify = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    await new Promise((r) => setTimeout(r, 500))
-    setLoading(false)
+    e.preventDefault();
+    setLoading(true);
+    await new Promise((r) => setTimeout(r, 500));
+    setLoading(false);
     if (code === "111111") {
-      setVerified(true)
-      router.push("/sign-up?step=password")
+      setVerified(true);
+      router.push("/sign-up?step=password");
     }
-  }
+  };
 
   return (
-    <LayoutShell>
+    <LayoutShell showFooter={false}>
       <section className="relative">
         <img
           src="/images/login-bg.jpg"
@@ -44,7 +44,9 @@ export default function VerifyPage() {
                 <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/15 ring-1 ring-white/25">
                   <div className="h-5 w-5 rounded-full bg-white" />
                 </div>
-                <span className="text-2xl font-semibold tracking-tight">KredMart</span>
+                <span className="text-2xl font-semibold tracking-tight">
+                  KredMart
+                </span>
               </div>
               <h1 className="text-3xl font-semibold leading-tight tracking-tight md:text-5xl">
                 {"Verify your account"}
@@ -57,8 +59,12 @@ export default function VerifyPage() {
             <div className="flex w-full items-center justify-center py-10">
               <div className="w-full max-w-md rounded-2xl border bg-card p-6 shadow-lg backdrop-blur-md md:p-8">
                 <StepProgress current={2} total={3} />
-                <div className="text-xs font-medium text-muted-foreground">{"VERIFICATION"}</div>
-                <h2 className="mt-1 text-xl font-semibold tracking-tight md:text-2xl">{"Enter Code"}</h2>
+                <div className="text-xs font-medium text-muted-foreground">
+                  {"VERIFICATION"}
+                </div>
+                <h2 className="mt-1 text-xl font-semibold tracking-tight md:text-2xl">
+                  {"Enter Code"}
+                </h2>
 
                 <form onSubmit={onVerify} className="mt-6 space-y-4">
                   <Input
@@ -70,7 +76,11 @@ export default function VerifyPage() {
                     onChange={(e) => setCode(e.target.value)}
                     required
                   />
-                  <Button type="submit" className="h-11 w-full" disabled={loading}>
+                  <Button
+                    type="submit"
+                    className="h-11 w-full"
+                    disabled={loading}
+                  >
                     {loading ? "Verifying..." : "Verify"}
                   </Button>
                 </form>
@@ -80,5 +90,5 @@ export default function VerifyPage() {
         </div>
       </section>
     </LayoutShell>
-  )
+  );
 }
