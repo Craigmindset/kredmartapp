@@ -223,22 +223,17 @@ export default function SiteHeader() {
 
             {/* ...existing code... */}
 
-            <Button
-              variant="ghost"
-              size="icon"
-              aria-label="Cart"
-              onClick={() => router.push("/cart")}
-              className="relative"
-            >
-              <ShoppingCart className="h-5 w-5" />
-              {itemCount > 0 && (
-                <Badge
-                  className="absolute -right-2 -top-2 px-1.5 py-0 text-[10px]"
-                  variant="secondary"
-                >
-                  {itemCount}
-                </Badge>
-              )}
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label="Cart"
+                onClick={() => router.push("/cart")}
+                className="relative mr-2"
+              >
+              <ShoppingCart className="h-5 w-5 mr-1.5" />
+              <span className={`absolute right-0 top-0 px-1.5 py-0 text-[10px] rounded-full min-w-[18px] h-[18px] flex items-center justify-center ${itemCount === 0 ? 'bg-red-600 text-white' : 'bg-gray-200 text-gray-900'}`}>
+                {itemCount}
+              </span>
             </Button>
 
             {user ? (
