@@ -20,16 +20,19 @@ export default function SignInPage() {
   const [remember, setRemember] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
     await new Promise((r) => setTimeout(r, 800));
     setLoading(false);
-    // Mock auth, persist "remember me" with your auth solution as needed
+    // Set user with actual login email
     setUser({
       firstName: "Kred",
       lastName: "User",
-      email: "user@example.com",
+      email,
       phone: "+1 555 000 0000",
     });
     router.push("/dashboard/overview");
@@ -92,6 +95,8 @@ export default function SignInPage() {
                       type="email"
                       required
                       placeholder="johnsondoe@nomail.com"
+                      value={email}
+                      onChange={e => setEmail(e.target.value)}
                     />
                   </div>
 
@@ -108,6 +113,8 @@ export default function SignInPage() {
                         required
                         placeholder="••••••••••••"
                         className="pr-10"
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
                       />
                       <button
                         type="button"
