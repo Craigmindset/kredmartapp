@@ -80,9 +80,21 @@ export default function HeroSection() {
           <div className="space-y-4 md:space-y-6 flex flex-col justify-center pt-2 md:pt-4 px-0 md:px-4">
             <div className="space-y-1 text-center">
               <h1
-                className={`${poppins.className} text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-gray-900 leading-tight tracking-tighter drop-shadow-lg`}
+                className={`${poppins.className} text-5xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[8rem] font-black text-gray-900 leading-tight tracking-tighter drop-shadow-lg`}
               >
-                {slide.headline}
+                {slide.headline === "Wallet Credit!" ? (
+                  <>
+                    <span className="block sm:inline leading-tight text-[2.8rem] sm:text-[4.5rem] md:text-[6rem] lg:text-[7.5rem] xl:text-[9rem]">
+                      Wallet
+                    </span>
+                    <span className="block sm:inline leading-tight text-red-600 text-[2.8rem] sm:text-[4.5rem] md:text-[6rem] lg:text-[7.5rem] xl:text-[9rem]">
+                      {" "}
+                      Credit!
+                    </span>
+                  </>
+                ) : (
+                  slide.headline
+                )}
               </h1>
               <h2
                 className={`${poppins.className} text-xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 leading-tight tracking-tighter mt-2`}
