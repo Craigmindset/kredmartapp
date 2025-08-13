@@ -62,7 +62,7 @@ export default function HeroSection() {
   const slide = slides[current];
 
   return (
-    <section className="relative bg-[#d0e6f5] min-h-[700px] overflow-hidden">
+    <section className="relative bg-[#d0e6f5] min-h-[400px] md:min-h-[600px] lg:min-h-[700px] overflow-hidden">
       {/* Background image with opacity */}
       <div
         className="absolute inset-0 w-full h-full z-0"
@@ -74,29 +74,29 @@ export default function HeroSection() {
           transition: "background-image 0.5s ease-in-out",
         }}
       />
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch h-full min-h-[600px]">
+      <div className="relative max-w-[1100px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center h-full min-h-[300px] md:min-h-[500px] lg:min-h-[600px]">
           {/* Left Column - Content */}
-          <div className="space-y-6 ml-14 lg:ml-16 flex flex-col justify-center pt-4">
-            <div className="space-y-1">
+          <div className="space-y-4 md:space-y-6 flex flex-col justify-center pt-2 md:pt-4 px-0 md:px-4">
+            <div className="space-y-1 text-center">
               <h1
-                className={`${poppins.className} text-6xl lg:text-7xl font-extrabold text-gray-900 leading-tight tracking-tighter`}
+                className={`${poppins.className} text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-gray-900 leading-tight tracking-tighter drop-shadow-lg`}
               >
                 {slide.headline}
               </h1>
-              <h1
-                className={`${poppins.className} text-2xl sm:text-3xl lg:text-4xl font-semibold text-gray-900 leading-tight tracking-tighter`}
+              <h2
+                className={`${poppins.className} text-xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 leading-tight tracking-tighter mt-2`}
               >
                 {slide.subheadline}
-              </h1>
+              </h2>
             </div>
-            <p className="text-xm text-gray-700 leading-normal max-w-lg">
+            <p className="text-sm sm:text-base md:text-lg text-gray-700 leading-normal max-w-lg">
               {slide.description}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 md:pt-4 w-full">
               <Button
                 size="lg"
-                className="bg-green-900 hover:bg-gray-800 shadow-lg hover:shadow-xl active:scale-95 transition-all duration-200"
+                className="bg-green-900 hover:bg-gray-800 shadow-lg hover:shadow-xl active:scale-95 transition-all duration-200 w-full sm:w-auto"
                 onClick={() => router.push("/sign-up")}
               >
                 {slides[0].button1.text}
@@ -104,14 +104,14 @@ export default function HeroSection() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white shadow-lg hover:shadow-xl active:scale-95 transition-all duration-200 bg-transparent"
+                className="border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white shadow-lg hover:shadow-xl active:scale-95 transition-all duration-200 bg-transparent w-full sm:w-auto"
                 onClick={() => (window.location.href = slides[0].button2.href)}
               >
                 {slides[0].button2.text}
               </Button>
             </div>
             {/* Slider Controls */}
-            <div className="flex items-center gap-4 pt-8">
+            <div className="flex items-center gap-3 md:gap-4 pt-6 md:pt-8">
               <button
                 aria-label="Previous Slide"
                 onClick={goToPrev}
@@ -141,14 +141,14 @@ export default function HeroSection() {
             </div>
           </div>
           {/* Right Column - Image aligned bottom */}
-          <div className="relative w-full h-full min-h-[500px] flex items-start justify-center pt-8">
+          <div className="relative w-full h-[220px] sm:h-[320px] md:h-[400px] lg:h-[500px] flex items-end justify-center pt-6 md:pt-8">
             <Image
               src={slide.src}
               alt={slide.alt}
-              width={700}
-              height={700}
+              fill
               className="object-contain"
               priority
+              sizes="(max-width: 768px) 90vw, (max-width: 1200px) 50vw, 500px"
             />
           </div>
         </div>

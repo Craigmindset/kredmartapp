@@ -46,7 +46,7 @@ export default function AdBanner() {
   const slide = slides[current];
 
   return (
-    <section className="hidden md:flex w-full max-w-7xl 2xl:max-w-screen-2xl mx-auto bg-gradient-to-tr from-[#bcc7d1] to-[#123d61] rounded-2xl border-4 border-[#e2e8f0] overflow-hidden shadow-md p-0 md:p-6 flex-col md:flex-row items-center justify-between min-h-[80px] md:min-h-[150px] relative">
+    <section className="hidden md:flex w-full max-w-[1100px] mx-auto bg-gradient-to-tr from-[#bcc7d1] to-[#123d61] rounded-2xl border-4 border-[#e2e8f0] overflow-hidden shadow-md p-0 md:p-6 flex-col md:flex-row items-center justify-between min-h-[80px] md:min-h-[150px] relative">
       {/* Left Arrow */}
       <button
         aria-label="Previous"
@@ -86,7 +86,7 @@ export default function AdBanner() {
       </div>
 
       {/* Image */}
-      <div className="relative w-full max-w-md mt-8 md:mt-0">
+      <div className="relative w-full max-w-[320px] mt-8 md:mt-0">
         <Image
           src={slide.img}
           alt={slide.title[1]}

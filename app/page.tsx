@@ -2,7 +2,7 @@ import LayoutShell from "@/components/layout-shell";
 import HeroSlider from "@/components/hero-slider";
 import BrandCarousel from "@/components/brand-carousel";
 import ProductsGrid from "@/components/products-grid";
-import AdBannerGrid from "@/components/ad-banner-grid";
+
 import AdBanner from "@/components/AdBanner";
 import HomeThreeAd from "@/components/HomeThreeAd";
 import TestimonialsSlider from "@/components/testimonials-slider";
@@ -25,7 +25,6 @@ export default function Page() {
       />
       <AdBanner />
       <HomeThreeAd />
-      <AdBannerGrid />
       <TestimonialsSlider />
       <Newsletter />
 
