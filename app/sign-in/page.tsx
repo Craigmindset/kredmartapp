@@ -111,10 +111,15 @@ export default function SignInPage() {
                       <Input
                         type={showPassword ? "text" : "password"}
                         required
-                        placeholder="••••••••••••"
+                        placeholder="••••••••"
                         className="pr-10"
+                        minLength={8}
+                        maxLength={8}
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={(e) => {
+                          // Only allow up to 8 characters
+                          setPassword(e.target.value.slice(0, 8));
+                        }}
                       />
                       <button
                         type="button"
