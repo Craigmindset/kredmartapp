@@ -172,12 +172,11 @@ export default function SiteHeader() {
                   <span className="sr-only">Open menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-80">
+              <SheetContent side="left" className="w-[60vw]">
                 <SheetHeader>
                   <SheetTitle>KredMart</SheetTitle>
                 </SheetHeader>
                 <div className="mt-4 space-y-2">
-                  <CountrySelector />
                   <nav className="flex flex-col">
                     {MENU.map((m) => (
                       <Link
@@ -189,14 +188,6 @@ export default function SiteHeader() {
                       </Link>
                     ))}
                   </nav>
-                  <div className="pt-2 flex gap-2">
-                    <Link href="/sign-in" className="text-sm underline">
-                      Login
-                    </Link>
-                    <Link href="/sign-up" className="text-sm underline">
-                      Sign Up
-                    </Link>
-                  </div>
                 </div>
               </SheetContent>
             </Sheet>
@@ -224,8 +215,9 @@ export default function SiteHeader() {
           </nav>
 
           {/* Right: Country dropdown, Cart, Auth */}
-          <div className="flex items-center justify-end gap-2">
-            <div className="hidden sm:block">
+          <div className="flex items-center gap-0.5 col-start-3 col-end-4 w-full justify-end">
+            {/* Country selector: visible on all screens, but styled for mobile */}
+            <div className="block">
               <CountrySelector />
             </div>
 
@@ -284,6 +276,29 @@ export default function SiteHeader() {
               </DropdownMenu>
             ) : (
               <>
+                {/* Show login icon on mobile */}
+                <Link
+                  href="/sign-in"
+                  className="flex md:hidden items-center justify-center p-2"
+                  aria-label="Sign in"
+                >
+                  {/* Padlock icon */}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M16.5 10.5V7.5a4.5 4.5 0 10-9 0v3"
+                    />
+                    <rect width="15" height="10" x="4.5" y="10.5" rx="2.5" />
+                  </svg>
+                </Link>
                 <Link
                   href="/sign-in"
                   className="hidden md:inline text-sm hover:underline"
