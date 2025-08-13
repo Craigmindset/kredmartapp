@@ -231,7 +231,7 @@ export default function SiteHeader() {
                 className="relative mr-2"
               >
               <ShoppingCart className="h-5 w-5 mr-1.5" />
-              <span className={`absolute right-0 top-0 px-1.5 py-0 text-[10px] rounded-full min-w-[18px] h-[18px] flex items-center justify-center ${itemCount === 0 ? 'bg-red-600 text-white' : 'bg-gray-200 text-gray-900'}`}>
+              <span className="absolute right-0 top-0 px-1.5 py-0 text-[10px] rounded-full min-w-[18px] h-[18px] flex items-center justify-center bg-red-600 text-white">
                 {itemCount}
               </span>
             </Button>

@@ -28,7 +28,10 @@ export default function ProductCard({ product }: { product: Product }) {
       <div className="group relative rounded-lg border bg-card">
         <div className="relative">
           {product.label && (
-            <Badge className="absolute left-2 top-2 z-10" variant="secondary">
+            <Badge
+              className={`absolute left-2 top-2 z-10 ${["Hot Deal", "Sales"].includes(product.label) ? "bg-red-600 text-white" : ""}`}
+              variant={ ["Hot Deal", "Sales"].includes(product.label) ? undefined : "secondary" }
+            >
               {product.label}
             </Badge>
           )}
