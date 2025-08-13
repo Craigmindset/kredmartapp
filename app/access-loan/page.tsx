@@ -88,7 +88,7 @@ export default function AccessLoanPage() {
         <SiteHeader />
       </Suspense>
 
-      <section className="bg-white min-h-screen py-16 px-6 relative overflow-hidden">
+      <section className="bg-white min-h-screen py-10 px-2 sm:px-6 relative overflow-hidden">
         {/* Background image */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -102,26 +102,28 @@ export default function AccessLoanPage() {
         </div>
 
         <div className="relative z-10">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center ml-8 md:ml-16">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center px-2 sm:px-8">
             {/* Left Side: Text */}
-            <div>
+            <div className="flex flex-col items-center md:items-start text-center md:text-left w-full">
               <div className="inline-flex items-center text-base font-semibold px-4 py-1 rounded-full bg-gray-100 text-gray-700 mb-4">
                 <span className="mr-2">🚀</span> Customers Come First
               </div>
 
-              <h1 className="text-5xl sm:text-6xl font-extrabold text-gray-900 leading-tight mb-8 tracking-tight">
+              <h1 className="text-4xl xs:text-5xl sm:text-6xl font-extrabold text-gray-900 leading-tight mb-6 sm:mb-8 tracking-tight">
                 Top Lenders <br />
-                <span className="block mt-2">All in one Place</span>
+                <span className="block mt-2 text-primary font-black">
+                  All in one Place
+                </span>
               </h1>
 
-              <p className="text-gray-700 text-base mb-10 tracking-tight">
+              <p className="text-gray-700 text-base sm:text-lg mb-8 sm:mb-10 tracking-tight max-w-lg">
                 Whether you’re shopping for a new gadget, appliance or dealing
                 with unexpected needs, we make borrowing simple and stress-free.
               </p>
 
               {/* Provider selector */}
-              <div className="relative inline-block mb-10">
-                <div className="flex items-center gap-2 mb-10">
+              <div className="relative inline-block mb-8 sm:mb-10 w-full">
+                <div className="flex items-center gap-2 mb-8 sm:mb-10 justify-center md:justify-start">
                   <Button
                     onClick={() => setDropdownOpen(!dropdownOpen)}
                     className="bg-[#1d3633] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#162a28] flex items-center gap-2"
@@ -157,10 +159,16 @@ export default function AccessLoanPage() {
 
             {/* Right Side: Provider Card */}
             {!providerChosen ? (
-              <div className="bg-[#e0f2fe] bg-opacity-80 rounded-2xl p-4 sm:p-6 shadow-xl w-full max-w-sm mx-auto flex items-center justify-center">
-                <span className="text-lg font-semibold text-gray-700">
-                  Loan Provider
-                </span>
+              <div className="w-full flex items-center justify-center min-h-[320px] sm:min-h-[420px] md:min-h-[520px] -mt-8 sm:-mt-12 md:-mt-16">
+                <Image
+                  src="/kredmart-happyman.png"
+                  alt="Loan Provider Banner"
+                  width={2100}
+                  height={1400}
+                  className="object-contain drop-shadow-xl rounded-2xl"
+                  style={{ maxWidth: "100%", height: "auto" }}
+                  priority
+                />
               </div>
             ) : (
               <div className="bg-[#e0f2fe] bg-opacity-80 rounded-2xl p-4 sm:p-6 shadow-xl w-full max-w-sm mx-auto">
