@@ -110,8 +110,8 @@ export default function HeroSection() {
                 {slides[0].button2.text}
               </Button>
             </div>
-            {/* Slider Controls */}
-            <div className="flex items-center gap-3 md:gap-4 pt-6 md:pt-8">
+            {/* Slider Controls - hidden on mobile */}
+            <div className="hidden sm:flex items-center gap-3 md:gap-4 pt-6 md:pt-8">
               <button
                 aria-label="Previous Slide"
                 onClick={goToPrev}
