@@ -25,6 +25,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useCart, cartSelectors } from "@/store/cart-store";
+import { useAuth } from "@/store/auth-store";
 import { appFontClass } from "@/lib/fonts";
 import { useEffect, useMemo, useState } from "react";
 import { allCategories } from "@/lib/products";
@@ -123,6 +124,8 @@ export default function SiteHeader() {
   const initialQ = (searchParams?.get("search") ?? "").toString();
   const [term, setTerm] = useState(initialQ);
   const itemCount = useCart(cartSelectors.count);
+  const user = useAuth((s) => s.user);
+  const logout = useAuth((s) => s.logout);
 
   const submitSearch = (e?: React.FormEvent) => {
     e?.preventDefault();
@@ -149,8 +152,13 @@ export default function SiteHeader() {
           className="flex flex-row items-center gap-1 group"
           aria-label="Return Policy"
         >
-          <span className="text-xs group-hover:text-blue-200">Return Policy</span>
-          <TbTruckReturn size={16} className="text-blue-200 group-hover:text-white transition-colors" />
+          <span className="text-xs group-hover:text-blue-200">
+            Return Policy
+          </span>
+          <TbTruckReturn
+            size={16}
+            className="text-blue-200 group-hover:text-white transition-colors"
+          />
         </Link>
       </div>
       <div className="container mx-auto px-4">
@@ -241,18 +249,55 @@ export default function SiteHeader() {
               )}
             </Button>
 
-            <Link
-              href="/sign-in"
-              className="hidden md:inline text-sm hover:underline"
-            >
-              Login
-            </Link>
-            <Link
-              href="/sign-up"
-              className="hidden md:inline-flex h-8 items-center justify-center rounded-md border border-input bg-background px-3 text-sm"
-            >
-              Sign Up
-            </Link>
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-8 px-2 flex items-center gap-2"
+                  >
+                    <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-muted text-xs font-bold uppercase">
+                      {user.firstName?.[0]}
+                      {user.lastName?.[0]}
+                    </span>
+                    <span className="hidden sm:inline text-sm font-medium">
+                      {user.firstName}
+                    </span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem
+                    onClick={() => router.push("/dashboard/overview")}
+                  >
+                    Dashboard
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => {
+                      logout();
+                      router.push("/");
+                    }}
+                  >
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <>
+                <Link
+                  href="/sign-in"
+                  className="hidden md:inline text-sm hover:underline"
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/sign-up"
+                  className="hidden md:inline-flex h-8 items-center justify-center rounded-md border border-input bg-background px-3 text-sm"
+                >
+                  Sign Up
+                </Link>
+              </>
+            )}
           </div>
         </div>
 
@@ -281,7 +326,17 @@ export default function SiteHeader() {
                   >
                     <DropdownMenuLabel>All Categories</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    {allCategories.map((c) => (
+                    {[
+                      "Phones and Tablets",
+                      "Computing",
+                      "Electronics",
+                      "Generators",
+                      "Accessories",
+                      "Home & Kitchen",
+                      "Lifestyle",
+                      "Watches",
+                      "Premium Devices",
+                    ].map((c) => (
                       <DropdownMenuItem
                         key={c}
                         onClick={() =>

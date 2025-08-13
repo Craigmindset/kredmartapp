@@ -166,10 +166,10 @@ export default function WalletPage() {
         <CardContent>
           <div className="text-2xl font-semibold">{symbolPreview}</div>
           <div className="mt-3 flex gap-2">
-            <Button variant="outline" onClick={() => addFunds(5000)}>
-              Add ₦5,000
+            <Button variant="outline" disabled>
+              Add Fund
             </Button>
-            {/* Withdraw button removed as requested */}
+            {/* Payment gateway API will be added here to top funds. */}
           </div>
 
           <Separator className="my-6" />
