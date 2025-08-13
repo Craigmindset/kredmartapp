@@ -1,89 +1,49 @@
 import Link from "next/link";
 import { appFontClass } from "@/lib/fonts";
-import { Facebook, Twitter, Instagram, Mail } from "lucide-react";
 
-export default function Footer() {
+export default function SiteFooter() {
   return (
-    <footer className="bg-black text-white py-12">
-      <div className="container mx-auto px-4">
-        {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-          {/* Company Info */}
-          <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-[#466cf4]">Shopella</h3>
-            <p className="text-gray-300 leading-relaxed">
-              Your credit-powered e-commerce platform. Access instant wallet
-              loans and shop top products with the best deals.
-            </p>
-            <div className="flex space-x-4">
-              <a
-                href="#"
-                className="text-gray-400 hover:text-[#466cf4] transition-colors"
-              >
-                <Facebook className="h-5 w-5" />
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-[#466cf4] transition-colors"
-              >
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-[#466cf4] transition-colors"
-              >
-                <Instagram className="h-5 w-5" />
-              </a>
-            </div>
-          </div>
-
-          {/* Quick Links */}
-          <div className="space-y-4">
-            <h4 className="text-lg font-semibold">Quick Links</h4>
-            <ul className="space-y-2">
+    <footer className={`border-t  bg-black text-white ${appFontClass}`}>
+      <div className="container mx-auto px-8 py-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 flex flex-row flex-wrap sm:gap-2 justify-center">
+          <div>
+            <h4 className="text-sm font-semibold mb-3 text-white">
+              Quick Links
+            </h4>
+            <ul className="space-y-1 text-sm text-gray-300">
               <li>
                 <Link
-                  href="/"
-                  className="text-gray-300 hover:text-[#466cf4] transition-colors"
+                  href="/store"
+                  className="hover:text-white transition-colors"
                 >
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/stores"
-                  className="text-gray-300 hover:text-[#466cf4] transition-colors"
-                >
-                  Stores
+                  Store
                 </Link>
               </li>
               <li>
                 <Link
                   href="/deals"
-                  className="text-gray-300 hover:text-[#466cf4] transition-colors"
+                  className="hover:text-white transition-colors"
                 >
-                  Shopella Deals
+                  KredMart Deals
                 </Link>
               </li>
               <li>
                 <Link
                   href="/about"
-                  className="text-gray-300 hover:text-[#466cf4] transition-colors"
+                  className="hover:text-white transition-colors"
                 >
-                  About Us
+                  About us
                 </Link>
               </li>
             </ul>
           </div>
-
-          {/* Customer Service */}
-          <div className="space-y-4">
-            <h4 className="text-lg font-semibold">Support</h4>
-            <ul className="space-y-2">
+          <div>
+            <h4 className="text-sm font-semibold mb-3 text-white">Support</h4>
+            <ul className="space-y-1 text-sm text-gray-300">
               <li>
                 <Link
                   href="/help"
-                  className="text-gray-300 hover:text-[#466cf4] transition-colors"
+                  className="hover:text-white transition-colors"
                 >
                   Feedback
                 </Link>
@@ -91,90 +51,56 @@ export default function Footer() {
               <li>
                 <Link
                   href="/returns"
-                  className="text-gray-300 hover:text-[#466cf4] transition-colors"
+                  className="hover:text-white transition-colors"
                 >
                   Returns & Refunds
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/delivery"
-                  className="text-gray-300 hover:text-[#466cf4] transition-colors"
+                  href="/shipping"
+                  className="hover:text-white transition-colors"
                 >
-                  Carreer
+                  Careers
                 </Link>
               </li>
             </ul>
           </div>
-
-          {/* Contact Info */}
-          <div className="space-y-4">
-            <h4 className="text-lg font-semibold">Contact Info</h4>
-            <div className="space-y-3">
-              <div className="flex items-center space-x-3">
-                <Mail className="h-5 w-5 text-[#466cf4]" />
-                <span className="text-gray-300">support@shopella.ng</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <img
-                  src="/whatsapp-logo.png"
-                  alt="WhatsApp"
-                  className="h-10 w-10"
-                />
-                <span className="text-gray-300">Chat us directly</span>
-              </div>
-            </div>
+          <div>
+            <h4 className="text-sm font-semibold mb-3 text-white">
+              Contact us
+            </h4>
+            <ul className="space-y-1 text-sm text-gray-300">
+              <li>Email: support@kredmart.com</li>
+              <li>Phone: +23480000000</li>
+              <li>Chat: Mon‑Fri 9am‑5pm</li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="text-sm font-semibold mb-3 text-white">Media</h4>
+            <ul className="space-y-1 text-sm text-gray-300">
+              <li>
+                <Link href="#" className="hover:text-white transition-colors">
+                  Press Kit
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="hover:text-white transition-colors">
+                  Brand Assets
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="hover:text-white transition-colors">
+                  Community
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
-
-        {/* Mobile Responsive Adjustments */}
-        <div className="md:hidden space-y-6">
-          {/* Newsletter Signup */}
-          <div className="bg-gray-900 p-6 rounded-lg">
-            <h4 className="text-lg font-semibold mb-3">Stay Updated</h4>
-            <p className="text-gray-300 mb-4">
-              Subscribe to get special offers and updates.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-[#466cf4]"
-              />
-              <button className="bg-[#466cf4] hover:bg-[#3a5ce0] text-white px-6 py-2 rounded-lg font-semibold transition-colors">
-                Subscribe
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom Footer */}
-        <div className="border-t border-gray-800 pt-8 mt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="text-gray-400 text-sm">
-              © 2024 Shopella. All rights reserved.
-            </div>
-            <div className="flex flex-wrap justify-center md:justify-end space-x-6 text-sm">
-              <Link
-                href="/privacy"
-                className="text-gray-400 hover:text-[#466cf4] transition-colors"
-              >
-                Privacy Policy
-              </Link>
-              <Link
-                href="/terms"
-                className="text-gray-400 hover:text-[#466cf4] transition-colors"
-              >
-                Terms of Service
-              </Link>
-              <Link
-                href="/cookies"
-                className="text-gray-400 hover:text-[#466cf4] transition-colors"
-              >
-                Cookie Policy
-              </Link>
-            </div>
-          </div>
+        <div className="pt-8 text-xs text-gray-400">
+          {"© "}
+          {new Date().getFullYear()}
+          {" KredMart. All rights reserved."}
         </div>
       </div>
     </footer>
