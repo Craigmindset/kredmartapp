@@ -15,12 +15,15 @@ import { formatNaira } from "@/lib/currency"
 export default function ProductCard({ product }: { product: Product }) {
   const [open, setOpen] = useState(false)
   const [qty, setQty] = useState(1)
+  const [fly, setFly] = useState(false)
   const add = useCart((s) => s.add)
   const { toast } = useToast()
 
   const onAdd = (q = 1) => {
     add(product, q)
     toast({ title: "Added to cart", description: product.title })
+  setFly(true)
+  setTimeout(() => setFly(false), 900)
   }
 
   return (
@@ -43,7 +46,8 @@ export default function ProductCard({ product }: { product: Product }) {
             className="h-48 w-full rounded-t-lg object-cover cursor-pointer"
             onClick={() => onAdd(1)}
           />
-          <div className="absolute inset-0 hidden items-center justify-center gap-2 bg-black/30 group-hover:flex">
+          {/* Show buttons always on mobile, on hover for desktop */}
+          <div className="absolute inset-0 flex items-center justify-center gap-2 bg-black/30 sm:hidden">
             <Button size="icon" variant="secondary" onClick={() => onAdd(1)} aria-label="Add to cart">
               <ShoppingCart className="h-5 w-5" />
             </Button>
@@ -51,6 +55,15 @@ export default function ProductCard({ product }: { product: Product }) {
               <Eye className="h-5 w-5" />
             </Button>
           </div>
+          <div className="absolute inset-0 hidden items-center justify-center gap-2 bg-black/30 sm:group-hover:flex">
+            <Button size="icon" variant="secondary" onClick={() => onAdd(1)} aria-label="Add to cart">
+              <ShoppingCart className="h-5 w-5" />
+            </Button>
+            <Button size="icon" variant="secondary" onClick={() => setOpen(true)} aria-label="Preview">
+              <Eye className="h-5 w-5" />
+            </Button>
+          </div>
+          {/* ...existing code... */}
         </div>
         <div className="p-3">
           <div className="text-sm text-muted-foreground">{product.brand}</div>
@@ -106,9 +119,20 @@ export default function ProductCard({ product }: { product: Product }) {
                   className="w-20"
                 />
               </div>
-              <Button className="w-full" onClick={() => onAdd(qty)}>
-                {"Add to cart — " + formatNaira(qty * product.price)}
-              </Button>
+              <div className="relative w-full">
+                <Button className="w-full" onClick={() => onAdd(qty)}>
+                  {"Add to cart — " + formatNaira(qty * product.price)}
+                </Button>
+                {/* Animated basket icon on mobile, only in modal */}
+                <span
+                  className={`absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 pointer-events-none
+                    ${fly ? 'animate-basket-fly' : 'opacity-0'}
+                    sm:hidden`}
+                  style={{ transition: 'opacity 0.2s' }}
+                >
+                  <ShoppingCart className="h-8 w-8 text-[#466cf4] drop-shadow-lg" />
+                </span>
+              </div>
             </div>
           </div>
         </DialogContent>
@@ -116,3 +140,14 @@ export default function ProductCard({ product }: { product: Product }) {
     </>
   )
 }
+// Tailwind CSS animation (add to your global CSS if not present)
+// @layer utilities {
+//   @keyframes basket-fly {
+//     0% { opacity: 1; transform: translate(-50%,-50%) scale(1) rotate(0deg); }
+//     60% { opacity: 1; transform: translate(-50%,-120%) scale(1.2) rotate(-20deg); }
+//     100% { opacity: 0; transform: translate(-50%,-220%) scale(0.7) rotate(-40deg); }
+//   }
+//   .animate-basket-fly {
+//     animation: basket-fly 0.9s cubic-bezier(.4,1.7,.7,1) both;
+//   }
+// }

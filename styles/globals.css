@@ -1,3 +1,13 @@
+@layer utilities {
+  @keyframes basket-fly {
+    0% { opacity: 1; transform: translate(-50%,-50%) scale(1) rotate(0deg); }
+    60% { opacity: 1; transform: translate(-50%,-120%) scale(1.2) rotate(-20deg); }
+    100% { opacity: 0; transform: translate(-50%,-220%) scale(0.7) rotate(-40deg); }
+  }
+  .animate-basket-fly {
+    animation: basket-fly 0.9s cubic-bezier(.4,1.7,.7,1) both;
+  }
+}
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
