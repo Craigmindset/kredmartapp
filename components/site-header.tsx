@@ -215,7 +215,7 @@ export default function SiteHeader() {
           </nav>
 
           {/* Right: Country dropdown, Cart, Auth */}
-          <div className="flex items-center gap-0.5 col-start-3 col-end-4 w-full justify-end">
+          <div className="flex items-center gap-0.5 col-start-3 col-end-4 w-full justify-end flex-grow md:flex-grow-0">
             {/* Country selector: visible on all screens, but styled for mobile */}
             <div className="block">
               <CountrySelector />
@@ -271,10 +271,10 @@ export default function SiteHeader() {
               </DropdownMenu>
             ) : (
               <>
-                {/* Show login icon on mobile */}
+                {/* Show login icon on all screens, always right-aligned */}
                 <Link
                   href="/sign-in"
-                  className="flex md:hidden items-center justify-center p-2"
+                  className="flex items-center justify-center p-2 md:p-0"
                   aria-label="Sign in"
                 >
                   {/* Padlock icon */}
@@ -293,12 +293,6 @@ export default function SiteHeader() {
                     />
                     <rect width="15" height="10" x="4.5" y="10.5" rx="2.5" />
                   </svg>
-                </Link>
-                <Link
-                  href="/sign-in"
-                  className="hidden md:inline text-sm hover:underline"
-                >
-                  Login
                 </Link>
                 <Link
                   href="/sign-up"
