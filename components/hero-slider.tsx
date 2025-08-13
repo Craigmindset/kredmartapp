@@ -78,19 +78,19 @@ export default function HeroSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center h-full min-h-[300px] md:min-h-[500px] lg:min-h-[600px]">
           {/* Left Column - Content */}
           <div className="space-y-4 md:space-y-6 flex flex-col justify-center pt-2 md:pt-4 px-0 md:px-4">
-            <div className="space-y-1 text-center">
+            <div className="space-y-1">
               <h1
-                className={`${poppins.className} text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-gray-900 leading-tight tracking-tighter drop-shadow-lg`}
+                className={`${poppins.className} text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 leading-tight tracking-tighter drop-shadow-lg whitespace-nowrap text-left`}
               >
                 {slide.headline}
               </h1>
               <h2
-                className={`${poppins.className} text-xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 leading-tight tracking-tighter mt-2`}
+                className={`${poppins.className} text-2xl sm:text-3xl lg:text-4xl font-semibold text-gray-900 leading-tight tracking-tighter text-left`}
               >
                 {slide.subheadline}
               </h2>
             </div>
-            <p className="text-sm sm:text-base md:text-lg text-gray-700 leading-normal max-w-lg">
+            <p className="text-xs sm:text-sm md:text-base text-gray-700 leading-normal max-w-lg">
               {slide.description}
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 md:pt-4 w-full">
