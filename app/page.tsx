@@ -4,6 +4,7 @@ import BrandCarousel from "@/components/brand-carousel";
 import ProductsGrid from "@/components/products-grid";
 import AdBannerGrid from "@/components/ad-banner-grid";
 import AdBanner from "@/components/AdBanner";
+import HomeThreeAd from "@/components/HomeThreeAd";
 import TestimonialsSlider from "@/components/testimonials-slider";
 import Newsletter from "@/components/newsletter";
 import { products } from "@/lib/products";
@@ -23,6 +24,7 @@ export default function Page() {
         items={deals}
       />
       <AdBanner />
+      <HomeThreeAd />
       <AdBannerGrid />
       <TestimonialsSlider />
       <Newsletter />
